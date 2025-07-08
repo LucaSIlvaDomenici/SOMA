@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #ffffff">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- CABEÇALHO -->
+    <nav class="navbar navbar-expand-lg" id="cabecalho" style="background-color: #151515; width: 100%;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-white" href="index.html">
+                <img class="img-fluid" width="175" height="225" src="assets/img/logotipo.png">
+            </a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="perfil.html">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="registros.html">Registros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="orientacoes.html">Orientações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="sobre-nos.html">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="" onclick="sairPerfil()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CORPO -->
+
+    <div class="row" style="margin: 0;">
+
+        <div class="col-10" id="corpo" style="min-width: 45rem;">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
+                class="scrollspy-example-2" tabindex="0">
+                <div class="flex-grow-1 p-4">
+                    <h1>Registros</h1>
+                    <div class="calendario">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <button class="btn btn-outline-secondary" onclick="mesAnterior()">&#8592;</button>
+                            <h2 id="mesAno" class="mb-0">Abril 2025</h2>
+                            <button class="btn btn-outline-secondary" onclick="proximoMes()">&#8594;</button>
+                        </div>
+                        <table class="table table-bordered" id="tabela-calendario" style="min-width: 8rem !important;">
+                            <thead class="table-light">
+                                <tr id="diaSemana">
+                                    <th id="diaS" style="width: 10rem;">Domingo</th>
+                                    <th id="diaS" style="width: 10rem;">Segunda-Feira</th>
+                                    <th id="diaS" style="width: 10rem;">Terça-Feira</th>
+                                    <th id="diaS" style="width: 10rem;">Quarta-Feira</th>
+                                    <th id="diaS" style="width: 10rem;">Quinta-Feira</th>
+                                    <th id="diaS" style="width: 10rem;">Sexta-Feira</th>
+                                    <th id="diaS" style="width: 10rem;">Sábado</th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 40rem;" id="dias"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE EDIÇÃO -->
+        <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarModalLabel">Registrar para o dia <span
+                                id="dataSelecionada"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="modal-form-ganho" class="mb-3">
+                            <h6>Adicionar Ganho</h6>
+                            <input type="text" class="form-control my-2" placeholder="Categoria" name="categoria"
+                                required>
+                            <input type="number" class="form-control my-2" placeholder="Valor" name="valor" required
+                                step="0.01" min="0">
+                            <button type="submit" class="btn btn-success w-100">Adicionar Ganho</button>
+                        </form>
+
+                        <form id="modal-form-despesa" class="mb-3">
+                            <h6>Adicionar Despesa</h6>
+                            <input type="text" class="form-control my-2" placeholder="Categoria" name="categoria"
+                                required>
+                            <input type="number" class="form-control my-2" placeholder="Valor" name="valor" required
+                                step="0.01" min="0">
+                            <button type="submit" class="btn btn-danger w-100">Adicionar Despesa</button>
+                        </form>
+
+                        <hr>
+
+                        <div>
+                            <h6>Ganhos do dia</h6>
+                            <ul id="lista-ganhos" class="list-group mb-3"></ul>
+
+                            <h6>Despesas do dia</h6>
+                            <ul id="lista-despesas" class="list-group"></ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- RODAPÉ -->
+    <footer class="navbar navbar-expand-lg" style="background-color: #151515;">
+        <div class="container-fluid justify-content-center text-white">
+            <span>&copy; 2025 SOMA - Todos os direitos reservados</span>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="assets/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        async function carregarPerfil() {
+            const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+            if (!usuarioLogado || !usuarioLogado.id) {
+                alert("Você precisa estar logado.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/usuarios/${usuarioLogado.id}`);
+                const usuario = await response.json();
+
+            } catch (error) {
+                console.error("Erro ao carregar perfil:", error);
+                alert("Erro ao carregar perfil. Tente novamente.");
+            }
+
+        }
+
+        function sairPerfil() {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "login.html";
+        }
+
+        window.onload = carregarPerfil;
+    </script>
+
+    <script>
+        let mesAtual = 5;
+        let diaSelecionadoModal = null;
+        let anoAtual = 2025;
+
+        const diasElemento = document.getElementById('dias');
+        const mesAnoElemento = document.getElementById('mesAno');
+
+        const formGanho = document.getElementById('modal-form-ganho');
+        const formDespesa = document.getElementById('modal-form-despesa');
+
+        function gerarNovoId(idsExistentes) {
+            for (let i = 1; ; i++) {
+                if (!idsExistentes.includes(i)) return i.toString();
+            }
+        }
+
+        formGanho.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(formGanho);
+
+            const ganhosExistentes = await fetch('http://localhost:3000/ganho')
+                .then(res => res.json());
+
+            const ids = ganhosExistentes.map(g => parseFloat(g.id));
+            const novoId = gerarNovoId(ids);
+
+            const ganho = {
+                id: novoId,
+                categoria: formData.get('categoria'),
+                valor: parseFloat(formData.get('valor')),
+                dia: diaSelecionadoModal,
+                mes: mesAtual,
+                ano: anoAtual
+            };
+
+            fetch('http://localhost:3000/ganho', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ganho)
+            }).then(() => {
+                formGanho.reset();
+                carregarRegistrosDoDia();
+                atualizarCalendario();
+            });
+        });
+
+        formDespesa.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(formDespesa);
+
+            const despesasExistentes = await fetch('http://localhost:3000/despesa')
+                .then(res => res.json());
+
+            const ids = despesasExistentes.map(d => parseFloat(d.id));
+            const novoId = gerarNovoId(ids);
+
+            const despesa = {
+                id: novoId,
+                categoria: formData.get('categoria'),
+                valor: parseFloat(formData.get('valor')),
+                dia: diaSelecionadoModal,
+                mes: mesAtual,
+                ano: anoAtual
+            };
+
+            fetch('http://localhost:3000/despesa', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(despesa)
+            }).then(() => {
+                formDespesa.reset();
+                carregarRegistrosDoDia();
+                atualizarCalendario();
+            });
+        });
+
+        function atualizarCalendario() {
+            const data = new Date(anoAtual, mesAtual, 1);
+            const primeiroDiaSemana = data.getDay();
+            const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+            diasElemento.innerHTML = '';
+            mesAnoElemento.innerText = `${data.toLocaleString('pt-BR', { month: 'long' }).charAt(0).toUpperCase() + data.toLocaleString('pt-BR', { month: 'long' }).slice(1)} ${anoAtual}`;
+
+            let linha = document.createElement('tr');
+            for (let i = 0; i < primeiroDiaSemana; i++) {
+                linha.appendChild(document.createElement('td'));
+            }
+
+            fetch('http://localhost:3000/ganho')
+                .then(res => res.json())
+                .then(ganhos => {
+                    fetch('http://localhost:3000/despesa')
+                        .then(res => res.json())
+                        .then(despesas => {
+                            for (let dia = 1; dia <= diasNoMes; dia++) {
+                                const celula = document.createElement('td');
+                                const botaoDia = document.createElement('button');
+                                botaoDia.className = 'btn w-100 border-0 position-relative'; // posição relativa para indicadores
+                                botaoDia.textContent = dia;
+                                botaoDia.setAttribute('data-bs-toggle', 'modal');
+                                botaoDia.setAttribute('data-bs-target', '#editarModal');
+                                botaoDia.onclick = () => abrirModalParaDia(dia);
+
+                                // Indicadores
+                                const temGanho = ganhos.some(g => g.dia === dia && g.mes === mesAtual && g.ano === anoAtual);
+                                const temDespesa = despesas.some(d => d.dia === dia && d.mes === mesAtual && d.ano === anoAtual);
+
+                                const indicadorContainer = document.createElement('div');
+                                indicadorContainer.className = 'd-flex justify-content-center gap-1 mt-1';
+
+                                if (temGanho) {
+                                    const pontoVerde = document.createElement('span');
+                                    pontoVerde.style.width = '8px';
+                                    pontoVerde.style.height = '8px';
+                                    pontoVerde.style.borderRadius = '50%';
+                                    pontoVerde.style.backgroundColor = 'green';
+                                    indicadorContainer.appendChild(pontoVerde);
+                                }
+
+                                if (temDespesa) {
+                                    const pontoVermelho = document.createElement('span');
+                                    pontoVermelho.style.width = '8px';
+                                    pontoVermelho.style.height = '8px';
+                                    pontoVermelho.style.borderRadius = '50%';
+                                    pontoVermelho.style.backgroundColor = 'red';
+                                    indicadorContainer.appendChild(pontoVermelho);
+                                }
+
+                                botaoDia.appendChild(indicadorContainer);
+                                celula.appendChild(botaoDia);
+                                linha.appendChild(celula);
+
+                                if ((primeiroDiaSemana + dia) % 7 === 0 || dia === diasNoMes) {
+                                    diasElemento.appendChild(linha);
+                                    linha = document.createElement('tr');
+                                }
+                            }
+                        });
+                });
+        }
+
+        function proximoMes() {
+            mesAtual++;
+            if (mesAtual > 11) {
+                mesAtual = 0;
+                anoAtual++;
+            }
+            atualizarCalendario();
+        }
+
+        function mesAnterior() {
+            mesAtual--;
+            if (mesAtual < 0) {
+                mesAtual = 11;
+                anoAtual--;
+            }
+            atualizarCalendario();
+        }
+
+        function carregarRegistrosDoDia() {
+            const listaGanhos = document.getElementById('lista-ganhos');
+            const listaDespesas = document.getElementById('lista-despesas');
+            listaGanhos.innerHTML = '';
+            listaDespesas.innerHTML = '';
+
+            fetch('http://localhost:3000/ganho')
+                .then(res => res.json())
+                .then(ganhos => {
+                    ganhos
+                        .filter(g => g.dia === diaSelecionadoModal && g.mes === mesAtual && g.ano === anoAtual)
+                        .forEach(g => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                            li.innerHTML = `
+                        ${g.categoria} - R$${g.valor.toFixed(2)}
+                        <button class="btn btn-sm btn-outline-danger" onclick="deletarRegistro('ganho', ${g.id})">Excluir</button>`;
+                            listaGanhos.appendChild(li);
+                        });
+                });
+
+            fetch('http://localhost:3000/despesa')
+                .then(res => res.json())
+                .then(despesas => {
+                    despesas
+                        .filter(d => d.dia === diaSelecionadoModal && d.mes === mesAtual && d.ano === anoAtual)
+                        .forEach(d => {
+                            const li = document.createElement('li');
+                            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                            li.innerHTML = `
+                        ${d.categoria} - R$${d.valor.toFixed(2)}
+                        <button class="btn btn-sm btn-outline-danger" onclick="deletarRegistro('despesa', ${d.id})">Excluir</button>
+                    `;
+                            listaDespesas.appendChild(li);
+                        });
+                });
+        }
+
+        function abrirModalParaDia(dia) {
+            diaSelecionadoModal = dia;
+            document.getElementById("dataSelecionada").textContent = `${dia}/${mesAtual + 1}/${anoAtual}`;
+            carregarRegistrosDoDia();
+        }
+
+        function deletarRegistro(tipo, id) {
+            fetch(`http://localhost:3000/${tipo}/${id}`, {
+                method: 'DELETE'
+            }).then(() => {
+                carregarRegistrosDoDia();
+                atualizarCalendario();
+            });
+        }
+
+        atualizarCalendario();
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "Matheus Cardoso",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "email": "matheus.cardoso@gmail.com",
+      "senha": "matheus123",
+      "idade": "25",
+      "trabalho": "Programador",
+      "tipoTrabalho": "Carteira Assinada",
+      "TipoRenda": "Renda Fixa",
+      "Renda": "Mensal"
+    },
+    {
+      "id": "2",
+      "nome": "Maria Eduarda",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "email": "maria.eduarda@gmail.com",
+      "senha": "maria123",
+      "idade": "19",
+      "trabalho": "Contadora",
+      "tipoTrabalho": "Carteira Assinada",
+      "TipoRenda": "Renda Fixa",
+      "Renda": "Variável"
+    },
+    {
+      "id": "6",
+      "nome": "Ababa",
+      "email": "ababa@gmail.com",
+      "senha": "123",
+      "idade": "34",
+      "trabalho": "aa",
+      "tipoTrabalho": "aa",
+      "TipoRenda": "aa",
+      "Renda": "aa",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740"
+    },
+    {
+      "nome": "Pedro Augusto",
+      "idade": "34",
+      "trabalho": "aa",
+      "email": "pedro@swss",
+      "senha": "123",
+      "tipoTrabalho": "aa",
+      "TipoRenda": "aa",
+      "Renda": "aa",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "id": "7"
+    },
+    {
+      "nome": "Pedro Augusto",
+      "idade": "26",
+      "trabalho": "Técnico de Informática",
+      "email": "pedro@gmail.com",
+      "senha": "1234",
+      "tipoTrabalho": "Informal",
+      "TipoRenda": "Renda fixa",
+      "Renda": "Mensal",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "id": "8"
+    },
+    {
+      "nome": "Pedro Augusto",
+      "idade": "26",
+      "trabalho": "Técnico de Informática",
+      "email": "pedro1@gmail.com",
+      "senha": "123",
+      "tipoTrabalho": "Informal",
+      "TipoRenda": "Renda fixa",
+      "Renda": "Mensal",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "id": "9"
+    },
+    {
+      "nome": "Pedro Augusto",
+      "idade": "35",
+      "trabalho": "Técnico de Informática",
+      "email": "pedro2@gmail.com",
+      "senha": "123",
+      "tipoTrabalho": "Informal",
+      "TipoRenda": "Renda fixa",
+      "Renda": "Mensal",
+      "fotoDePerfil": "https://img.freepik.com/fotos-gratis/retrato-de-homem-branco-isolado_53876-40306.jpg?semt=ais_hybrid&w=740",
+      "id": "10"
+    }
+  ],
+  "despesa": [
+    {
+      "id": "1",
+      "categoria": "Lazer",
+      "valor": 34,
+      "dia": 4,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "2",
+      "categoria": "Alimentação",
+      "valor": 589.67,
+      "dia": 6,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "3",
+      "categoria": "Lazer",
+      "valor": 45,
+      "dia": 11,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "4",
+      "categoria": "Conta de luz",
+      "valor": 128,
+      "dia": 9,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "5",
+      "categoria": "Conta de água",
+      "valor": 245.87,
+      "dia": 9,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "6",
+      "categoria": "Parcela celular",
+      "valor": 230,
+      "dia": 12,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "7",
+      "categoria": "Parcela cartão de crédito Visa",
+      "valor": 1456.54,
+      "dia": 8,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "8",
+      "categoria": "Lazer",
+      "valor": 23.5,
+      "dia": 3,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "9",
+      "categoria": "Lazer",
+      "valor": 34,
+      "dia": 4,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "10",
+      "categoria": "Lazer",
+      "valor": 56,
+      "dia": 30,
+      "mes": 5,
+      "ano": 2025
+    }
+  ],
+  "ganho": [
+    {
+      "id": "1",
+      "categoria": "Salário",
+      "valor": 2550.56,
+      "dia": 6,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "2",
+      "categoria": "Venda Sofá",
+      "valor": 450,
+      "dia": 10,
+      "mes": 5,
+      "ano": 2025
+    },
+    {
+      "id": "3",
+      "categoria": "Venda bolo de pote",
+      "valor": 300,
+      "dia": 17,
+      "mes": 5,
+      "ano": 2025
+    }
+  ]
+}

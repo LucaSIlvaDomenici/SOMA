@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #ffffff;">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+
+  <!-- CABEÇALHO -->
+
+  <nav class="navbar navbar-expand-lg" id="cabecalho" style="background-color: #151515; width: 100%;">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-white" href="index.html">
+        <img class="img-fluid" width="175" height="225" src="assets/img/logotipo.png">
+      </a>
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav fs-5">
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="perfil.html">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="registros.html">Registros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="orientacoes.html">Orientações</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="sobre-nos.html">Sobre Nós</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="" onclick="sairPerfil()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CORPO -->
+
+  <div class="container my-5">
+    <div class="d-flex">
+      <img src="assets/img/icone_pessoa.jpg" alt="Foto de Perfil" class="img-thumbnail me-4"
+        style="width: 180px; height: 180px;">
+      <div>
+        <h3 id="nomeCompleto" class="fw-bold">Nome Completo</h3>
+        <p id="idadeTexto">Idade: </p>
+        <p id="profissaoTexto">Profissão/Trabalho: </p>
+      </div>
+    </div>
+    <hr>
+    <div id="dadosUsuario" class="mt-3">
+      <p><strong>E-mail:</strong></p>
+      <p><strong>Senha:</strong></p>
+      <p><strong>Tipo de trabalho:</strong></p>
+      <p><strong>Tipo de renda:</strong></p>
+      <p><strong>Renda mensal/semanal:</strong></p>
+    </div>
+    <div class="mt-4 d-flex gap-2">
+      <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button>
+      <button class="btn btn-danger" onclick="sairPerfil()">Sair do perfil</button>
+    </div>
+  </div>
+
+  <!-- Modal Editar -->
+  <div class="modal fade" id="editarModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form id="formEditar">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Perfil</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="nome" class="form-label">Nome Completo</label>
+                <input type="text" class="form-control" id="nome" required />
+              </div>
+              <div class="col">
+                <label for="idade" class="form-label">Idade</label>
+                <input type="number" class="form-control" id="idade" required />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="profissao" class="form-label">Profissão/Trabalho</label>
+              <input type="text" class="form-control" id="profissao" />
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+              <div class="col">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" required />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <label for="tipoTrabalho" class="form-label">Tipo de trabalho</label>
+                <input type="text" class="form-control" id="tipoTrabalho" />
+              </div>
+              <div class="col">
+                <label for="tipoRenda" class="form-label">Tipo de renda</label>
+                <input type="text" class="form-control" id="tipoRenda" />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="renda" class="form-label">Renda mensal/semanal</label>
+              <input type="text" class="form-control" id="renda" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">Salvar Alterações</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+
+  <footer class="navbar navbar-expand-lg fixed-bottom" style="background-color: #151515;">
+    <div class="container-fluid justify-content-center text-white">
+      <span>&copy; 2025 SOMA - Todos os direitos reservados</span>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script src="assets/js/app.js"></script>
+
+  <script>
+    async function carregarPerfil() {
+      const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuarioLogado || !usuarioLogado.id) {
+        alert("Você precisa estar logado.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3000/usuarios/${usuarioLogado.id}`);
+        const usuario = await response.json();
+
+        document.getElementById("nomeCompleto").textContent = usuario.nome;
+        document.getElementById("idadeTexto").textContent = `Idade: ${usuario.idade} anos`;
+        document.getElementById("profissaoTexto").textContent = `Profissão/Trabalho: ${usuario.trabalho}`;
+
+        const dados = document.getElementById("dadosUsuario").querySelectorAll("p");
+        dados[0].innerHTML = `<strong>E-mail:</strong> ${usuario.email}`;
+        dados[1].innerHTML = `<strong>Senha:</strong> ${usuario.senha}`;
+        dados[2].innerHTML = `<strong>Tipo de trabalho:</strong> ${usuario.tipoTrabalho}`;
+        dados[3].innerHTML = `<strong>Tipo de renda:</strong> ${usuario.TipoRenda}`;
+        dados[4].innerHTML = `<strong>Renda mensal/semanal:</strong> ${usuario.Renda}`;
+
+        // Preencher o modal de edição
+        document.getElementById("nome").value = usuario.nome;
+        document.getElementById("idade").value = usuario.idade;
+        document.getElementById("profissao").value = usuario.trabalho;
+        document.getElementById("email").value = usuario.email;
+        document.getElementById("senha").value = usuario.senha;
+        document.getElementById("tipoTrabalho").value = usuario.tipoTrabalho;
+        document.getElementById("tipoRenda").value = usuario.TipoRenda;
+        document.getElementById("renda").value = usuario.Renda;
+      } catch (error) {
+        console.error("Erro ao carregar perfil:", error);
+        alert("Erro ao carregar perfil. Tente novamente.");
+      }
+    }
+
+    function sairPerfil() {
+      localStorage.removeItem("usuarioLogado");
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("formEditar").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuarioLogado || !usuarioLogado.id) return;
+
+      const atualizado = {
+        nome: document.getElementById("nome").value,
+        idade: document.getElementById("idade").value,
+        trabalho: document.getElementById("profissao").value,
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value,
+        tipoTrabalho: document.getElementById("tipoTrabalho").value,
+        TipoRenda: document.getElementById("tipoRenda").value,
+        Renda: document.getElementById("renda").value,
+        fotoDePerfil: usuarioLogado.fotoDePerfil || "assets/img/icone_pessoa.jpg",
+        id: usuarioLogado.id
+      };
+
+      try {
+        await fetch(`http://localhost:3000/usuarios/${usuarioLogado.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(atualizado)
+        });
+
+        localStorage.setItem("usuarioLogado", JSON.stringify(atualizado));
+        alert("Perfil atualizado com sucesso!");
+        location.reload();
+      } catch (error) {
+        console.error("Erro ao atualizar:", error);
+        alert("Erro ao atualizar perfil.");
+      }
+    });
+
+    window.onload = carregarPerfil;
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

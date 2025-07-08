@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMA</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #ffffff">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- CABEÇALHO -->
+    <nav class="navbar navbar-expand-lg" id="cabecalho" style="background-color: #151515; width: 100%;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-white" href="index.html">
+                <img class="img-fluid" width="175" height="225" src="assets/img/logotipo.png">
+            </a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="perfil.html">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="registros.html">Registros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="orientacoes.html">Orientações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="sobre-nos.html">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="" onclick="sairPerfil()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BARRA LATERAL + CORPO -->
+
+    <div class="row" style="margin: 0;">
+
+        <!-- BARRA LATERAL -->
+
+        <div class="col-2 d-flex pt-3  justify-content-center border-end" id="barraLateral"
+            style="background-color: #8c8b8e37;">
+            <div class="card" style="width: 13rem; background-color: #8c8b8e00; border-color: #8c8b8e00;">
+                <img height="200" src="assets/img/icone_pessoa.jpg"
+                    class="mx-auto d-block img-thumbnail img-fluid w-100">
+                <div class="card-body">
+                    <h4 id="nomeCompleto" class="card-title pb-3"></h4>
+                    <p id="totalSaldo" class="card-text text-primary"></p>
+                    <p id="totalReceitas" class="card-text text-success"></p>
+                    <p id="totalDespesas" class="card-text text-danger"></p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- CORPO -->
+
+        <div class="col-md-9 col-lg-10 py-4">
+
+            <!-- Histórico Mensal -->
+            <div class="card mb-4 shadow-sm" style="min-height: 16rem;">
+                <div class="card-body">
+                    <h2 class="card-title fs-4">Histórico Mensal</h2>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos de Receitas e Despesas -->
+            <div class="row g-4" style="min-height: 17rem;">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title fs-5">Receitas por Categoria e Dia</h2>
+                            <div class="chart-container">
+                                <canvas id="incomeCatDayChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h2 class="card-title fs-5">Despesas por Categoria e Dia</h2>
+                            <div class="chart-container">
+                                <canvas id="expenseCatDayChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <footer class="navbar navbar-expand-lg fixed-bottom" style="background-color: #151515;">
+        <div class="container-fluid justify-content-center text-white">
+            <span>&copy; 2025 SOMA - Todos os direitos reservados</span>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="chart-bar.js" type="text/javascript"></script>
+    <script src="chart-cat-day.js"></script>
+
+    <script>
+        async function carregarPerfil() {
+            const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+            if (!usuarioLogado || !usuarioLogado.id) {
+                alert("Você precisa estar logado.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/usuarios/${usuarioLogado.id}`);
+                const usuario = await response.json();
+
+                document.getElementById("nomeCompleto").textContent = usuario.nome;
+            } catch (error) {
+                console.error("Erro ao carregar perfil:", error);
+                alert("Erro ao carregar perfil. Tente novamente.");
+            }
+
+
+        }
+
+        function sairPerfil() {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "login.html";
+        }
+
+        window.onload = carregarPerfil;
+    </script>
+
+    <script>
+        var intermediarioDespesas
+        var intermediarioReceitas
+
+        fetch('http://localhost:3000/ganho')
+            .then(res => res.json())
+            .then(data => {
+
+                let totalReceitas = 0;
+                data.forEach(item => {
+                    totalReceitas += item.valor
+                });
+
+                intermediarioReceitas = totalReceitas;
+                totalReceitas = totalReceitas.toString();
+
+                document.getElementById('totalReceitas').innerHTML = `<p><strong>Receitas: <\strong>R$${totalReceitas}<\p>`;
+            })
+
+        fetch('http://localhost:3000/despesa')
+            .then(res => res.json())
+            .then(data => {
+
+                let totalDespesas = 0;
+                data.forEach(item => {
+                    totalDespesas += item.valor
+                });
+
+                intermediarioDespesas = totalDespesas;                
+                totalDespesas = totalDespesas.toString();
+
+                document.getElementById('totalDespesas').innerHTML = `<p><strong>Despesas: <\strong>R$${totalDespesas}<\p>`;
+
+                var totalSaldo = intermediarioReceitas - intermediarioDespesas
+                totalSaldo = totalSaldo.toString();
+
+                document.getElementById('totalSaldo').innerHTML = `<p><strong>Saldo: <\strong>R$${totalSaldo}<\p>`;
+            })
+    </script>
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', async () => {
+
+            // 1) Carrega dados de receitas (ganhos) e despesas
+            const [ganhos, despesas] = await Promise.all([
+                fetch('http://localhost:3000/ganho').then(r => r.json()),
+                fetch('http://localhost:3000/despesa').then(r => r.json())
+            ]);
+
+            //
+            // === Gráfico 1: Histórico Mensal (Receitas x Despesas) ===
+            //
+            const todos = [
+                ...ganhos.map(g => ({ ...g, tipo: 'receita' })),
+                ...despesas.map(d => ({ ...d, tipo: 'despesa' }))
+            ];
+
+            // Agrupa por “MM/YYYY”
+            const mensal = todos.reduce((acc, { mes, ano, valor, tipo }) => {
+                const key = `${String(mes + 1).padStart(2, '0')}/${ano}`;
+                if (!acc[key]) acc[key] = { receita: 0, despesa: 0 };
+                acc[key][tipo] += valor;
+                return acc;
+            }, {});
+
+            const labelsMensal = Object.keys(mensal).sort((a, b) => {
+                const [ma, ya] = a.split('/').map(Number);
+                const [mb, yb] = b.split('/').map(Number);
+                return new Date(ya, ma - 1) - new Date(yb, mb - 1);
+            });
+            const dataReceitaMensal = labelsMensal.map(l => mensal[l].receita);
+            const dataDespesaMensal = labelsMensal.map(l => mensal[l].despesa);
+
+            new Chart(
+                document.getElementById('barChart').getContext('2d'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: labelsMensal,
+                        datasets: [
+                            {
+                                label: 'Receitas',
+                                data: dataReceitaMensal,
+                                backgroundColor: 'rgba(0,128,0,0.5)',
+                                borderColor: 'green',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Despesas',
+                                data: dataDespesaMensal,
+                                backgroundColor: 'rgba(255,0,0,0.5)',
+                                borderColor: 'red',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'Mês/Ano' } },
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Valor (R$)' }
+                            }
+                        },
+                        plugins: {
+                            tooltip: { mode: 'index', intersect: false }
+                        }
+                    }
+                }
+            );
+
+            //
+            // === Gráficos 2 e 3: por Categoria e Dia ===
+            // Prepara listas de categorias e dias únicos
+            //
+            const formatDia = ({ dia, mes, ano }) =>
+                `${String(dia).padStart(2, '0')}/${String(mes + 1).padStart(2, '0')}/${ano}`;
+
+            const catsReceita = [...new Set(ganhos.map(g => g.categoria))];
+            const catsDespesa = [...new Set(despesas.map(d => d.categoria))];
+
+            const diasReceita = [...new Set(ganhos.map(formatDia))].sort((a, b) =>
+                new Date(a.split('/').reverse().join('-')) -
+                new Date(b.split('/').reverse().join('-'))
+            );
+            const diasDespesa = [...new Set(despesas.map(formatDia))].sort((a, b) =>
+                new Date(a.split('/').reverse().join('-')) -
+                new Date(b.split('/').reverse().join('-'))
+            );
+
+            // Função genérica para datasets de categoria x dia
+            const colors = [
+                'rgba(75,192,192,0.5)',
+                'rgba(255,99,132,0.5)',
+                'rgba(54,162,235,0.5)',
+                'rgba(255,206,86,0.5)',
+                'rgba(153,102,255,0.5)',
+                'rgba(255,159,64,0.5)'
+            ];
+
+            function buildDatasets(dataArr, categories, days) {
+                return categories.map((cat, idx) => {
+                    const bg = colors[idx % colors.length];
+                    const border = bg.replace(/0\.5\)$/, '1)');
+                    const datapoints = days.map(day =>
+                        dataArr
+                            .filter(item => formatDia(item) === day && item.categoria === cat)
+                            .reduce((sum, { valor }) => sum + valor, 0)
+                    );
+                    return {
+                        label: cat,
+                        data: datapoints,
+                        backgroundColor: bg,
+                        borderColor: border,
+                        borderWidth: 1
+                    };
+                });
+            }
+
+            // Gráfico de Receitas por Categoria/Dia
+            new Chart(
+                document.getElementById('incomeCatDayChart').getContext('2d'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: diasReceita,
+                        datasets: buildDatasets(ganhos, catsReceita, diasReceita)
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'Dia' } },
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Valor (R$)' }
+                            }
+                        },
+                        plugins: {
+                            tooltip: { mode: 'index', intersect: false }
+                        }
+                    }
+                }
+            );
+
+            // Gráfico de Despesas por Categoria/Dia
+            new Chart(
+                document.getElementById('expenseCatDayChart').getContext('2d'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: diasDespesa,
+                        datasets: buildDatasets(despesas, catsDespesa, diasDespesa)
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'Dia' } },
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Valor (R$)' }
+                            }
+                        },
+                        plugins: {
+                            tooltip: { mode: 'index', intersect: false }
+                        }
+                    }
+                }
+            );
+        });
+
+    </script>
+
+
+</body>
+
+</html>

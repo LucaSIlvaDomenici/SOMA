@@ -1,0 +1,24 @@
+{
+  "name": "soma",
+  "version": "1.0.0",
+  "description": "<h3 align=\"center\">\r   💸SOMA💸\r </h3>\r <p align=\"center\">\r   Sistema de Organização e Melhoria e Ativos ou SOMA é um site de um sistema de organização financeira ou orçamento pessoal onde o usuário pode cadastro ganhos e despesas e analisar os gráficos de categorias e de tempo.\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "json-server --watch db/db.json --port 3000 --static ./public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucaSIlvaDomenici/SOMA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucaSIlvaDomenici/SOMA/issues"
+  },
+  "homepage": "https://github.com/LucaSIlvaDomenici/SOMA#readme",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}

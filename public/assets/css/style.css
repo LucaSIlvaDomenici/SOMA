@@ -1,0 +1,25 @@
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* @media screen and (max-width:1350px) {
+    #cabecalho {
+        display: none !important;
+    }
+} */
+
+@media screen and (max-width:1350px) {
+    #barraLateral {
+        display: none !important;
+    }
+
+    #diaS {
+        font-size:xx-small;
+    }
+}
+
+#calendar {
+   max-width: 900px;
+   margin: 0 auto;
+}
